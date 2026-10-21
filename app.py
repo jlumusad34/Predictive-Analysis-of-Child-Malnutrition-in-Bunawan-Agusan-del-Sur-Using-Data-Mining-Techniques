@@ -30,13 +30,244 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-.block-container {padding-top: 1.2rem;}
-h1 {color: #1f4e79;}
-h2 {color: #1f4e79; border-bottom: 1px solid #e6e6e6; padding-bottom: 4px;}
-h3 {color: #333;}
-[data-testid="stMetricValue"] {color: #1f4e79;}
+:root {
+    --brand: #1f4e79;
+    --brand-soft: #eaf1f8;
+    --accent: #c0392b;
+    --accent-soft: #fdecea;
+    --success: #1e8449;
+    --success-soft: #e8f6ee;
+    --ink: #1c2733;
+    --muted: #5a6b7b;
+    --line: #dbe4ec;
+    --card: #ffffff;
+    --bg: #f7fafc;
+}
+
+html, body, [class*="css"] {
+    font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+}
+
+.stApp {
+    background: var(--bg);
+}
+
+.block-container {
+    padding-top: 2.2rem;
+    padding-bottom: 3rem;
+    max-width: 1400px;
+}
+
+h1, h2, h3, h4 {
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+h2 {
+    font-size: 1.35rem;
+    margin-top: 1.8rem;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--brand);
+    border-bottom: none;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.05rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.6rem;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.app-header {
+    padding: 1.4rem 1.6rem;
+    background: linear-gradient(120deg, #1f4e79 0%, #2e6ba8 100%);
+    color: #ffffff;
+    border-radius: 14px;
+    margin-bottom: 1.8rem;
+    box-shadow: 0 4px 16px rgba(31, 78, 121, 0.18);
+}
+.app-header .title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin: 0;
+}
+.app-header .subtitle {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    margin-top: 0.25rem;
+}
+
+.kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.kpi-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 3px rgba(15, 30, 45, 0.04);
+    transition: box-shadow 0.15s ease;
+}
+.kpi-card:hover {
+    box-shadow: 0 4px 12px rgba(15, 30, 45, 0.08);
+}
+.kpi-card .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+.kpi-card .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--brand);
+    line-height: 1.1;
+}
+.kpi-card .value.accent { color: var(--accent); }
+.kpi-card .value.success { color: var(--success); }
+.kpi-card .caption {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+}
+
+.pill {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.pill-good { background: var(--success-soft); color: var(--success); }
+.pill-bad { background: var(--accent-soft); color: var(--accent); }
+.pill-neutral { background: var(--brand-soft); color: var(--brand); }
+
+.insight {
+    background: var(--brand-soft);
+    border-left: 3px solid var(--brand);
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin: 0.75rem 0 1rem 0;
+}
+
+[data-testid="stSidebar"] {
+    background: var(--card);
+    border-right: 1px solid var(--line);
+}
+[data-testid="stSidebar"] h2 {
+    border-left: none;
+    padding-left: 0;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 4px;
+    background: transparent;
+    border-bottom: 2px solid var(--line);
+    padding: 0;
+}
+.stTabs [data-baseweb="tab"] {
+    background: transparent;
+    border-radius: 0;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+}
+.stTabs [aria-selected="true"] {
+    background: transparent !important;
+    color: var(--brand) !important;
+    border-bottom: 2px solid var(--brand) !important;
+}
+
+[data-testid="stDataFrame"] {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+}
+
+[data-testid="stMetricValue"] {
+    color: var(--brand);
+    font-weight: 700;
+}
+
+div[data-testid="stExpander"] {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+}
+
+.stButton>button, .stDownloadButton>button {
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+}
+.stButton>button:hover, .stDownloadButton>button:hover {
+    background: #17405f;
+    color: #fff;
+}
+
+.app-footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.78rem;
+    padding: 2rem 0 0.5rem 0;
+    border-top: 1px solid var(--line);
+    margin-top: 3rem;
+}
 </style>
 """, unsafe_allow_html=True)
+
+plt.rcParams.update({
+    "axes.edgecolor": "#cbd5df",
+    "axes.labelcolor": "#5a6b7b",
+    "axes.titlesize": 11,
+    "axes.titleweight": "600",
+    "axes.titlecolor": "#1c2733",
+    "axes.grid": False,
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "xtick.color": "#5a6b7b",
+    "ytick.color": "#5a6b7b",
+    "font.size": 9.5,
+    "figure.facecolor": "#ffffff",
+    "savefig.facecolor": "#ffffff",
+})
+
+PALETTE = {
+    "brand": "#1f4e79",
+    "brand_light": "#2e6ba8",
+    "accent": "#c0392b",
+    "accent_soft": "#e67e73",
+    "success": "#1e8449",
+    "success_soft": "#54b87a",
+    "warning": "#d68910",
+    "neutral": "#7f8c8d",
+    "series": ["#1f4e79", "#2e6ba8", "#5499c7", "#a9cce3"],
+}
 
 CONFIG = {
     "file_hints": ("nutritional", "rhu", "opt"),
@@ -55,12 +286,14 @@ CONFIG = {
     "age_labels": ["0-5", "6-11", "12-23", "24-35", "36-47", "48-59"],
 }
 
+
 def strip_display(value):
     if value is None or (isinstance(value, float) and pd.isna(value)):
         return ""
     text = re.sub(r'[\U00010000-\U0010ffff]', '', str(value))
     text = re.sub(r'\s+', ' ', text).strip()
     return text
+
 
 def clean_columns(df):
     df = df.copy()
@@ -82,6 +315,7 @@ def clean_columns(df):
     df.columns = out
     return df
 
+
 def find_col(df, *candidates):
     normalized = {}
     for c in df.columns:
@@ -92,6 +326,7 @@ def find_col(df, *candidates):
         if key in normalized:
             return normalized[key]
     return None
+
 
 def read_all_sheets():
     files = []
@@ -142,6 +377,7 @@ def read_all_sheets():
         st.error("could not read workbook: " + strip_display(exc))
         return None, None
 
+
 def normalize_text_columns(df):
     df = df.copy()
     for col in df.columns:
@@ -151,6 +387,7 @@ def normalize_text_columns(df):
             df[col] = df[col].replace({"nan": np.nan, "NaN": np.nan, "None": np.nan})
     return df
 
+
 def drop_non_records(df):
     no_col = find_col(df, "NO.", "NO", "No")
     if no_col is None:
@@ -158,10 +395,12 @@ def drop_non_records(df):
     numeric = pd.to_numeric(df[no_col], errors="coerce")
     return df[numeric.notna()].copy()
 
+
 def drop_duplicates(df):
     meta = [c for c in df.columns if str(c).startswith("_")]
     check_cols = [c for c in df.columns if c not in meta]
     return df.drop_duplicates(subset=check_cols, keep="first").copy()
+
 
 def prepare_columns(df):
     df = df.copy()
@@ -189,11 +428,13 @@ def prepare_columns(df):
             )
     return df, cols
 
+
 def drop_missing_anthropometry(df, cols):
     w, h = cols["weight"], cols["height"]
     if w and h:
         return df[~(df[w].isna() & df[h].isna())].copy()
     return df
+
 
 def drop_missing_status(df, cols):
     waz, haz, whz = cols["waz"], cols["haz"], cols["whz"]
@@ -201,12 +442,14 @@ def drop_missing_status(df, cols):
         return df[~(df[waz].isna() & df[haz].isna() & df[whz].isna())].copy()
     return df
 
+
 def drop_out_of_scope_age(df, cols):
     age = cols["age"]
     if age:
         df = df[df[age].notna()].copy()
         df = df[(df[age] >= CONFIG["age_min"]) & (df[age] <= CONFIG["age_max"])].copy()
     return df
+
 
 def impute_missing(df, cols):
     df = df.copy()
@@ -222,6 +465,7 @@ def impute_missing(df, cols):
             df[col] = df[col].fillna(fill)
     return df
 
+
 def build_target(df, cols):
     waz, haz, whz = cols["waz"], cols["haz"], cols["whz"]
     if not all([waz, haz, whz]):
@@ -234,6 +478,7 @@ def build_target(df, cols):
                 return 1
         return 0
     return df.apply(row_malnourished, axis=1).astype(int)
+
 
 def build_features(df, cols):
     features = pd.DataFrame(index=df.index)
@@ -249,12 +494,24 @@ def build_features(df, cols):
         features["barangay"] = df[cols["barangay"]].astype(str)
     return features
 
+
 def encode_features(features):
     encoded = features.copy()
+    encoders = {}
     for col in ("sex", "barangay"):
         if col in encoded.columns:
-            encoded[col] = LabelEncoder().fit_transform(encoded[col].astype(str))
-    return encoded
+            encoder = LabelEncoder()
+            encoded[col] = encoder.fit_transform(encoded[col].astype(str))
+            encoders[col] = encoder
+    return encoded, encoders
+
+
+def decode_barangay(codes, encoder):
+    if encoder is None:
+        return codes
+    reverse = {i: name for i, name in enumerate(encoder.classes_)}
+    return pd.Series(codes).map(reverse).fillna("UNKNOWN").values
+
 
 def train_all_models(X, y):
     X_train, X_test, y_train, y_test = train_test_split(
@@ -278,13 +535,19 @@ def train_all_models(X, y):
     for name, model in candidates.items():
         model.fit(X_train_scaled, y_train)
         y_pred = model.predict(X_test_scaled)
+        if hasattr(model, "predict_proba"):
+            y_proba = model.predict_proba(X_test_scaled)[:, 1]
+        else:
+            y_proba = y_pred.astype(float)
         trained[name] = {
             "model": model,
             "y_test": y_test,
             "y_pred": y_pred,
+            "y_proba": y_proba,
             "X_test": X_test_scaled,
         }
     return trained, scaler, X_train, X_test, y_train, y_test
+
 
 def metric_row(y_true, y_pred):
     return {
@@ -294,8 +557,29 @@ def metric_row(y_true, y_pred):
         "F1-Score": f1_score(y_true, y_pred, zero_division=0),
     }
 
+
 def share_of(part, whole):
     return round((part / whole * 100), 2) if whole else 0.0
+
+
+def kpi_row(cards):
+    html = '<div class="kpi-row">'
+    for label, value, caption, kind in cards:
+        value_class = {"default": "", "accent": "accent", "success": "success"}.get(kind, "")
+        html += (
+            '<div class="kpi-card">'
+            f'<div class="label">{label}</div>'
+            f'<div class="value {value_class}">{value}</div>'
+            f'<div class="caption">{caption}</div>'
+            '</div>'
+        )
+    html += '</div>'
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def insight(text):
+    st.markdown(f'<div class="insight">{text}</div>', unsafe_allow_html=True)
+
 
 raw_df, loaded_file = read_all_sheets()
 
@@ -331,7 +615,7 @@ if len(features) < 10 or labels.nunique() < 2:
     st.error("not enough valid records or class variety to train models")
     st.stop()
 
-encoded = encode_features(features)
+encoded, encoders = encode_features(features)
 
 trained, scaler, X_train, X_test, y_train, y_test = train_all_models(encoded, labels)
 
@@ -344,8 +628,42 @@ best_combined = metrics["F1+Recall"].idxmax()
 best_f1 = metrics["F1-Score"].idxmax()
 best_recall = metrics["Recall"].idxmax()
 
-st.title("Child Nutritional Status Dashboard")
-st.caption("Computed results from the Operation Timbang records")
+cv_folds = CONFIG["cv_folds"]
+scaled_features = StandardScaler().fit_transform(encoded)
+cv = StratifiedKFold(n_splits=cv_folds, shuffle=True,
+                     random_state=CONFIG["random_state"])
+cv_models = {
+    "Decision Tree": DecisionTreeClassifier(random_state=CONFIG["random_state"]),
+    "Random Forest": RandomForestClassifier(
+        n_estimators=200, random_state=CONFIG["random_state"]),
+    "Naive Bayes": GaussianNB(),
+    "Logistic Regression": LogisticRegression(
+        max_iter=2000, random_state=CONFIG["random_state"]),
+}
+cv_scores = {}
+for name, model in cv_models.items():
+    cv_scores[name] = cross_val_score(
+        model, scaled_features, labels, cv=cv, scoring="accuracy")
+cv_df = pd.DataFrame(cv_scores)
+cv_df.index = [f"Fold {i+1}" for i in range(cv_folds)]
+cv_df.loc["Mean"] = cv_df.mean()
+cv_df.loc["Std"] = cv_df.iloc[:-2].std()
+
+metrics_with_cv = metrics.copy()
+for name in metrics_with_cv.index:
+    mean_val = cv_scores[name].mean()
+    std_val = cv_scores[name].std()
+    metrics_with_cv.loc[name, "CV Accuracy (mean ± std)"] = (
+        f"{mean_val:.4f} ± {std_val:.4f}"
+    )
+
+st.markdown(
+    '<div class="app-header">'
+    '<div class="title">Child Nutritional Status Dashboard</div>'
+    '<div class="subtitle">Computed results from the Operation Timbang records</div>'
+    '</div>',
+    unsafe_allow_html=True
+)
 
 overview_tab, brgy_tab, demo_tab, factors_tab, evaluation_tab, decision_tab = st.tabs([
     "Overview",
@@ -357,7 +675,7 @@ overview_tab, brgy_tab, demo_tab, factors_tab, evaluation_tab, decision_tab = st
 ])
 
 with st.sidebar:
-    st.subheader("Filters")
+    st.markdown("## Filters")
     if col_map["barangay"]:
         brgy_options = sorted(df_model[col_map["barangay"]].dropna().unique().tolist())
         selected_brgy = st.multiselect(
@@ -387,44 +705,115 @@ if col_map["age"]:
                         (filtered[col_map["age"]] <= age_range[1])]
 
 with overview_tab:
-    st.subheader("Record Summary")
     total = len(filtered)
     mal = int(filtered["malnourished"].sum())
     not_mal = total - mal
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Records", f"{total:,}")
-    c2.metric("Malnourished", f"{mal:,}")
-    c3.metric("Not Malnourished", f"{not_mal:,}")
-    c4.metric("Malnourished share", f"{share_of(mal, total)}%")
+    share = share_of(mal, total)
 
-    st.subheader("Distribution of Nutritional Status")
-    fig, ax = plt.subplots(figsize=(5, 4))
-    counts = filtered["malnourished"].value_counts().reindex([0, 1], fill_value=0)
-    ax.bar(["Not Malnourished", "Malnourished"], counts.values,
-           color=["#2ecc71", "#e74c3c"], edgecolor="black")
-    ax.set_ylabel("Children")
-    ax.set_title("Binary nutritional status")
-    for i, v in enumerate(counts.values):
-        ax.text(i, v + max(1, total * 0.01), str(int(v)), ha="center")
-    plt.tight_layout()
-    st.pyplot(fig)
-    plt.close()
+    kpi_row([
+        ("Records", f"{total:,}", "filtered children", "default"),
+        ("Malnourished", f"{mal:,}", "binary label = 1", "accent"),
+        ("Not Malnourished", f"{not_mal:,}", "binary label = 0", "success"),
+        ("Malnourished share", f"{share}%", "of filtered records", "accent"),
+    ])
 
-    st.subheader("WHO Indicator Codes")
+    st.markdown("## Distribution of Nutritional Status")
+    col_a, col_b = st.columns([3, 2])
+    with col_a:
+        fig, ax = plt.subplots(figsize=(6, 3.4))
+        counts = filtered["malnourished"].value_counts().reindex([0, 1], fill_value=0)
+        bars = ax.bar(
+            ["Not Malnourished", "Malnourished"],
+            counts.values,
+            color=[PALETTE["success"], PALETTE["accent"]],
+            width=0.55
+        )
+        for bar, v in zip(bars, counts.values):
+            ax.text(bar.get_x() + bar.get_width() / 2,
+                    bar.get_height() + max(1, total * 0.015),
+                    str(int(v)), ha="center", fontsize=10, fontweight="600")
+        ax.set_ylabel("Children")
+        ax.set_ylim(0, counts.max() * 1.18 if counts.max() else 1)
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close()
+    with col_b:
+        st.markdown("<h3>Share</h3>", unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="kpi-card">'
+            f'<div class="label">Malnourished</div>'
+            f'<div class="value accent">{share}%</div>'
+            f'<div class="caption">{mal} of {total} children</div>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+
+    st.markdown("## Records by Year and Barangay")
+    if col_map["barangay"] and col_map["sheet"]:
+        crosstab = pd.crosstab(
+            filtered[col_map["sheet"]], filtered[col_map["barangay"]],
+            margins=True, margins_name="Total"
+        )
+        with st.expander("records by sheet and barangay", expanded=True):
+            st.dataframe(crosstab, use_container_width=True)
+
+    st.markdown("## Year-over-Year Malnourishment")
+    if col_map["sheet"]:
+        year_summary = (
+            filtered.groupby(col_map["sheet"])["malnourished"]
+            .agg(Total="count", Malnourished="sum")
+        )
+        year_summary["Not Malnourished"] = (
+            year_summary["Total"] - year_summary["Malnourished"])
+        year_summary["Malnourished %"] = (
+            year_summary["Malnourished"] /
+            year_summary["Total"].replace(0, np.nan) * 100
+        ).round(2)
+
+        fig, ax = plt.subplots(figsize=(8, 3.4))
+        plot_df = year_summary.reset_index().rename(columns={col_map["sheet"]: "Sheet"})
+        plot_df[["Malnourished", "Not Malnourished"]].plot(
+            kind="bar", stacked=True, ax=ax,
+            color=[PALETTE["accent"], PALETTE["success"]],
+            width=0.5, edgecolor="white"
+        )
+        ax.set_xticklabels(plot_df["Sheet"].astype(str), rotation=0)
+        ax.set_ylabel("Children")
+        ax.set_xlabel("")
+        ax.legend(frameon=False)
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close()
+
+        with st.expander("year-over-year rates", expanded=False):
+            st.dataframe(year_summary, use_container_width=True)
+
+        if len(year_summary) >= 2:
+            sheets = year_summary.index.tolist()
+            first, last = sheets[0], sheets[-1]
+            delta = (year_summary.loc[last, "Malnourished %"] -
+                     year_summary.loc[first, "Malnourished %"])
+            insight(
+                f"malnourished share changed from "
+                f"<b>{year_summary.loc[first, 'Malnourished %']}%</b> ({first}) to "
+                f"<b>{year_summary.loc[last, 'Malnourished %']}%</b> ({last}); "
+                f"difference of <b>{delta:+.2f}</b> percentage points."
+            )
+
+    st.markdown("## WHO Indicator Codes")
     indicator_cols = [col_map["waz"], col_map["haz"], col_map["whz"]]
     indicator_cols = [c for c in indicator_cols if c]
     if indicator_cols:
         cols_ui = st.columns(len(indicator_cols))
         for i, col in enumerate(indicator_cols):
             with cols_ui[i]:
+                st.markdown(f"<h3>{col}</h3>", unsafe_allow_html=True)
                 counts = filtered[col].fillna("not recorded").value_counts()
                 st.dataframe(counts.rename("records").to_frame(),
                              use_container_width=True)
-    else:
-        st.info("no indicator columns detected")
 
 with brgy_tab:
-    st.subheader("Malnourishment by Barangay")
+    st.markdown("## Malnourishment by Barangay")
     if col_map["barangay"]:
         brgy_summary = (
             filtered.groupby(col_map["barangay"])["malnourished"]
@@ -438,28 +827,32 @@ with brgy_tab:
         ).round(2)
         brgy_summary = brgy_summary.sort_values(
             "Malnourished %", ascending=False)
-        st.dataframe(brgy_summary, use_container_width=True)
 
-        fig, ax = plt.subplots(figsize=(10, max(4, len(brgy_summary) * 0.45)))
+        fig, ax = plt.subplots(figsize=(10, max(3.5, len(brgy_summary) * 0.42)))
         plot_df = brgy_summary.sort_values("Malnourished %", ascending=True)
-        ax.barh(plot_df.index, plot_df["Malnourished %"], color="#e74c3c")
+        bars = ax.barh(plot_df.index, plot_df["Malnourished %"],
+                       color=PALETTE["brand"], height=0.65)
+        for bar, v in zip(bars, plot_df["Malnourished %"].values):
+            ax.text(bar.get_width() + 0.4, bar.get_y() + bar.get_height() / 2,
+                    f"{v:.1f}%", va="center", fontsize=9, color="#5a6b7b")
         ax.set_xlabel("Malnourished share (%)")
-        ax.set_title("Share of malnourished children per barangay")
-        for i, v in enumerate(plot_df["Malnourished %"].values):
-            ax.text(v + 0.4, i, f"{v:.1f}%", va="center", fontsize=9)
+        ax.set_xlim(0, max(plot_df["Malnourished %"].max() * 1.25, 10))
         plt.tight_layout()
         st.pyplot(fig)
         plt.close()
 
+        with st.expander("barangay table", expanded=True):
+            st.dataframe(brgy_summary, use_container_width=True)
+
         worst = brgy_summary.index[0]
-        st.write(
-            "highest malnourished share recorded in " + worst +
-            " at " + str(brgy_summary.loc[worst, "Malnourished %"]) + "%.")
-    else:
-        st.info("no barangay column detected")
+        insight(
+            "highest malnourished share recorded in <b>" + str(worst) +
+            "</b> at <b>" + str(brgy_summary.loc[worst, "Malnourished %"]) +
+            "%</b>."
+        )
 
 with demo_tab:
-    st.subheader("Malnourishment by Sex")
+    st.markdown("## Malnourishment by Sex")
     if col_map["sex"]:
         sex_summary = (
             filtered.groupby(col_map["sex"])["malnourished"]
@@ -473,7 +866,7 @@ with demo_tab:
         ).round(2)
         st.dataframe(sex_summary, use_container_width=True)
 
-    st.subheader("Malnourishment by Age Group")
+    st.markdown("## Malnourishment by Age Group")
     if col_map["age"]:
         work = filtered.copy()
         work["age_group"] = pd.cut(
@@ -493,23 +886,29 @@ with demo_tab:
             age_summary["Malnourished"] /
             age_summary["Total"].replace(0, np.nan) * 100
         ).round(2)
-        st.dataframe(age_summary, use_container_width=True)
 
-        fig, ax = plt.subplots(figsize=(10, 4))
+        fig, ax = plt.subplots(figsize=(10, 3.4))
         plot_df = age_summary.reset_index()
-        ax.bar(plot_df["age_group"].astype(str),
-               plot_df["Malnourished %"], color="#3498db", edgecolor="black")
+        bars = ax.bar(
+            plot_df["age_group"].astype(str),
+            plot_df["Malnourished %"],
+            color=PALETTE["brand_light"], width=0.6
+        )
+        for bar, v in zip(bars, plot_df["Malnourished %"].values):
+            ax.text(bar.get_x() + bar.get_width() / 2,
+                    bar.get_height() + 0.4,
+                    f"{v:.1f}%", ha="center", fontsize=9)
         ax.set_xlabel("Age group (months)")
         ax.set_ylabel("Malnourished share (%)")
-        ax.set_title("Share of malnourished children per age group")
-        for i, v in enumerate(plot_df["Malnourished %"].values):
-            ax.text(i, v + 0.4, f"{v:.1f}%", ha="center", fontsize=9)
         plt.tight_layout()
         st.pyplot(fig)
         plt.close()
 
+        with st.expander("age-group table", expanded=False):
+            st.dataframe(age_summary, use_container_width=True)
+
 with factors_tab:
-    st.subheader("Variable Importance Across Models")
+    st.markdown("## Variable Importance Across Models")
 
     importance = {}
     for name, r in trained.items():
@@ -523,57 +922,97 @@ with factors_tab:
         imp_df = pd.DataFrame(importance, index=encoded.columns)
         imp_df["Average"] = imp_df.mean(axis=1)
         imp_df = imp_df.sort_values("Average", ascending=False)
-        st.dataframe(imp_df.round(4), use_container_width=True)
 
-        fig, ax = plt.subplots(figsize=(10, max(4, len(imp_df) * 0.45)))
-        imp_df.drop(columns="Average").plot(kind="barh", ax=ax)
+        rank_df = imp_df.drop(columns="Average").rank(ascending=False, method="average")
+        imp_df["Consensus Rank"] = rank_df.mean(axis=1).round(2)
+        imp_df = imp_df.sort_values("Consensus Rank", ascending=True)
+
+        st.caption("tree importance and absolute logistic coefficients are not "
+                   "on a common scale; consensus rank is the mean of per-model ranks.")
+
+        fig, ax = plt.subplots(figsize=(10, max(3.5, len(imp_df) * 0.45)))
+        plot_df = imp_df.drop(columns=["Average", "Consensus Rank"]).iloc[::-1]
+        plot_df.plot(kind="barh", ax=ax,
+                     color=PALETTE["series"][:len(plot_df.columns)],
+                     width=0.7, edgecolor="white")
         ax.set_xlabel("Importance or absolute coefficient")
-        ax.invert_yaxis()
-        ax.set_title("Per-variable importance by model")
+        ax.legend(frameon=False, fontsize=8, loc="lower right")
         plt.tight_layout()
         st.pyplot(fig)
         plt.close()
 
-        st.write(
-            "highest average importance: " + str(imp_df.index[0]) +
-            " with a mean score of " + f"{imp_df['Average'].iloc[0]:.4f}.")
-    else:
-        st.info("no importance-computable model was trained")
+        with st.expander("importance table", expanded=True):
+            st.dataframe(imp_df.round(4), use_container_width=True)
+
+        top_name = imp_df.index[0]
+        insight(
+            "highest consensus importance: <b>" + str(top_name) +
+            "</b> with mean rank <b>" +
+            f"{imp_df.loc[top_name, 'Consensus Rank']:.2f}</b>."
+        )
 
 with evaluation_tab:
-    st.subheader("Test-Set Performance")
-    display_metrics = metrics.drop(columns="F1+Recall").round(4)
+    st.markdown("## Test-Set Performance")
+    st.caption("point estimates come from a single stratified 80/20 split; "
+               "the last column reports cross-validation accuracy mean ± std.")
+    display_metrics = metrics_with_cv.drop(columns="F1+Recall").round(4)
     st.dataframe(
-        display_metrics.style.highlight_max(axis=0, color="#c6efce"),
+        display_metrics.style.highlight_max(axis=0, color="#d4ede0"),
         use_container_width=True
     )
 
-    st.subheader("Best Model Summary")
+    st.markdown("## Best Model Summary")
     c1, c2, c3 = st.columns(3)
-    c1.metric("Highest F1", best_f1,
-              f"{metrics.loc[best_f1, 'F1-Score']:.4f}")
-    c2.metric("Highest Recall", best_recall,
-              f"{metrics.loc[best_recall, 'Recall']:.4f}")
-    c3.metric("Highest F1 + Recall", best_combined,
-              f"{metrics.loc[best_combined, 'F1+Recall']:.4f}")
+    with c1:
+        st.markdown(
+            f'<div class="kpi-card">'
+            f'<div class="label">Highest F1</div>'
+            f'<div class="value">{metrics.loc[best_f1, "F1-Score"]:.4f}</div>'
+            f'<div class="caption">{best_f1}</div>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+    with c2:
+        st.markdown(
+            f'<div class="kpi-card">'
+            f'<div class="label">Highest Recall</div>'
+            f'<div class="value">{metrics.loc[best_recall, "Recall"]:.4f}</div>'
+            f'<div class="caption">{best_recall}</div>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+    with c3:
+        st.markdown(
+            f'<div class="kpi-card">'
+            f'<div class="label">Highest F1 + Recall</div>'
+            f'<div class="value accent">{metrics.loc[best_combined, "F1+Recall"]:.4f}</div>'
+            f'<div class="caption">{best_combined}</div>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
 
-    st.subheader("Confusion Matrices")
+    st.caption("best-model selection uses combined F1 + Recall, per the "
+               "screening-oriented evaluation; a precision-first policy "
+               "would reorder the candidates.")
+
+    st.markdown("## Confusion Matrices")
     pair_cols = st.columns(2)
     for i, (name, r) in enumerate(trained.items()):
         with pair_cols[i % 2]:
             cm = confusion_matrix(r["y_test"], r["y_pred"], labels=[0, 1])
-            fig, ax = plt.subplots(figsize=(4, 3.4))
+            fig, ax = plt.subplots(figsize=(4.2, 3.4))
             sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
                         xticklabels=["Not Mal.", "Mal."],
-                        yticklabels=["Not Mal.", "Mal."], ax=ax)
-            ax.set_title(name)
+                        yticklabels=["Not Mal.", "Mal."], ax=ax,
+                        cbar=False, annot_kws={"fontsize": 12, "fontweight": "600"})
+            ax.set_title(name, pad=8)
             ax.set_xlabel("Predicted")
             ax.set_ylabel("Actual")
             plt.tight_layout()
             st.pyplot(fig)
             plt.close()
 
-    st.subheader("Per-Model Classification Report")
+    st.markdown("## Per-Model Classification Report")
     for name, r in trained.items():
         with st.expander(name):
             report = classification_report(
@@ -584,43 +1023,70 @@ with evaluation_tab:
             st.dataframe(pd.DataFrame(report).T.round(4),
                          use_container_width=True)
 
-    st.subheader("Cross-Validation Accuracy")
-    scaled_features = StandardScaler().fit_transform(encoded)
-    cv = StratifiedKFold(n_splits=CONFIG["cv_folds"], shuffle=True,
-                        random_state=CONFIG["random_state"])
-    cv_models = {
-        "Decision Tree": DecisionTreeClassifier(random_state=CONFIG["random_state"]),
-        "Random Forest": RandomForestClassifier(
-            n_estimators=200, random_state=CONFIG["random_state"]),
-        "Naive Bayes": GaussianNB(),
-        "Logistic Regression": LogisticRegression(
-            max_iter=2000, random_state=CONFIG["random_state"]),
-    }
-    cv_scores = {}
-    for name, model in cv_models.items():
-        cv_scores[name] = cross_val_score(
-            model, scaled_features, labels, cv=cv, scoring="accuracy")
-    cv_df = pd.DataFrame(cv_scores)
-    cv_df.index = [f"Fold {i+1}" for i in range(CONFIG["cv_folds"])]
-    cv_df.loc["Mean"] = cv_df.mean()
-    cv_df.loc["Std"] = cv_df.iloc[:-2].std()
-    st.dataframe(cv_df.round(4), use_container_width=True)
+    st.markdown("## Recall by Barangay (Test Set)")
+    if col_map["barangay"]:
+        test_rows = X_test.index.tolist()
+        if "barangay" in encoded.columns:
+            brgy_codes_test = encoded.iloc[test_rows]["barangay"].values
+            brgy_names_test = decode_barangay(
+                brgy_codes_test, encoders.get("barangay"))
+        else:
+            brgy_names_test = None
 
-    mean_lines = " | ".join(
-        f"{n}: {s.mean():.4f} +/- {s.std():.4f}" for n, s in cv_scores.items()
-    )
-    st.write("mean cross-validation accuracy - " + mean_lines)
+        if brgy_names_test is not None:
+            recall_records = []
+            for name, r in trained.items():
+                df_te = pd.DataFrame({
+                    "barangay": brgy_names_test,
+                    "y_true": r["y_test"].values,
+                    "y_pred": r["y_pred"],
+                })
+                for brgy_name, group in df_te.groupby("barangay"):
+                    pos_mask = group["y_true"] == 1
+                    if pos_mask.sum() == 0:
+                        recall_val = np.nan
+                    else:
+                        recall_val = (
+                            (group.loc[pos_mask, "y_pred"] == 1).sum()
+                            / pos_mask.sum()
+                        )
+                    recall_records.append({
+                        "Model": name,
+                        "Barangay": brgy_name,
+                        "Positives": int(pos_mask.sum()),
+                        "Recall": round(float(recall_val), 4) if not pd.isna(recall_val) else "n/a",
+                    })
+            recall_df = pd.DataFrame(recall_records)
+            with st.expander("per-barangay recall on the held-out test set"):
+                st.dataframe(recall_df, use_container_width=True)
+
+    st.markdown("## Cross-Validation Accuracy")
+    with st.expander("fold-by-fold cross-validation accuracy", expanded=True):
+        st.dataframe(cv_df.round(4), use_container_width=True)
+        mean_lines = " | ".join(
+            f"{n}: {s.mean():.4f} ± {s.std():.4f}"
+            for n, s in cv_scores.items()
+        )
+        st.write("mean cross-validation accuracy — " + mean_lines)
 
 with decision_tab:
-    st.subheader("Predicted Risk per Barangay")
+    st.markdown("## Predicted Risk per Barangay")
     best_model = trained[best_combined]["model"]
     full_matrix = scaler.transform(encoded)
-    full_pred = best_model.predict(full_matrix)
+    if hasattr(best_model, "predict_proba"):
+        full_proba = best_model.predict_proba(full_matrix)[:, 1]
+    else:
+        full_proba = best_model.predict(full_matrix).astype(float)
+    full_pred = (full_proba >= 0.5).astype(int)
 
     scored = df_model.copy()
+    scored["risk_probability"] = full_proba
     scored["predicted_risk"] = full_pred
     scored["predicted_label"] = scored["predicted_risk"].map(
         {1: "At Risk", 0: "Not At Risk"})
+
+    st.caption("risk_probability is the model's estimated probability of "
+               "malnourishment; the binary label uses a 0.50 threshold.")
 
     if col_map["barangay"]:
         risk_summary = (
@@ -633,54 +1099,84 @@ with decision_tab:
             risk_summary["At_Risk"] /
             risk_summary["Total"].replace(0, np.nan) * 100
         ).round(2)
-        risk_summary = risk_summary.sort_values("At Risk %", ascending=False)
-        st.dataframe(risk_summary, use_container_width=True)
+        mean_prob = (
+            scored.groupby(col_map["barangay"])["risk_probability"].mean().round(4)
+        )
+        risk_summary["Mean Probability"] = mean_prob
+        risk_summary = risk_summary.sort_values(
+            "Mean Probability", ascending=False)
 
-        fig, ax = plt.subplots(figsize=(10, max(4, len(risk_summary) * 0.45)))
-        plot_df = risk_summary.sort_values("At Risk %", ascending=True)
-        ax.barh(plot_df.index, plot_df["At Risk %"], color="#e67e22")
-        ax.set_xlabel("Predicted at-risk share (%)")
-        ax.set_title("Predicted at-risk children per barangay (" +
-                     best_combined + ")")
-        for i, v in enumerate(plot_df["At Risk %"].values):
-            ax.text(v + 0.4, i, f"{v:.1f}%", va="center", fontsize=9)
+        fig, ax = plt.subplots(figsize=(10, max(3.5, len(risk_summary) * 0.42)))
+        plot_df = risk_summary.sort_values("Mean Probability", ascending=True)
+        bars = ax.barh(plot_df.index, plot_df["Mean Probability"],
+                       color=PALETTE["warning"], height=0.65)
+        for bar, v in zip(bars, plot_df["Mean Probability"].values):
+            ax.text(bar.get_width() + 0.01, bar.get_y() + bar.get_height() / 2,
+                    f"{v:.3f}", va="center", fontsize=9, color="#5a6b7b")
+        ax.set_xlabel("Mean predicted probability")
         plt.tight_layout()
         st.pyplot(fig)
         plt.close()
 
-        st.write(
-            "highest predicted at-risk share in " +
-            str(risk_summary.index[0]) + " at " +
-            str(risk_summary.loc[risk_summary.index[0], "At Risk %"]) + "%; " +
-            "best model for scoring is " + best_combined + ".")
+        with st.expander("risk table by barangay", expanded=True):
+            st.dataframe(risk_summary, use_container_width=True)
 
-    st.subheader("Predicted Risk Distribution")
+        top = risk_summary.index[0]
+        insight(
+            "highest mean predicted probability in <b>" + str(top) +
+            "</b> at <b>" + f"{risk_summary.loc[top, 'Mean Probability']:.4f}" +
+            "</b>; best model for scoring is <b>" + best_combined + "</b>."
+        )
+
+    st.markdown("## Predicted Risk Distribution")
     dist = scored["predicted_label"].value_counts()
-    c1, c2 = st.columns([1, 1])
-    with c1:
-        fig, ax = plt.subplots(figsize=(4.5, 4))
+    col_a, col_b = st.columns([2, 3])
+    with col_a:
+        fig, ax = plt.subplots(figsize=(4.2, 4))
         ax.pie(dist.values, labels=dist.index, autopct="%1.1f%%",
-               colors=["#e74c3c", "#2ecc71"][:len(dist)], startangle=90)
+               colors=[PALETTE["accent"], PALETTE["success"]][:len(dist)],
+               startangle=90,
+               wedgeprops=dict(width=0.42, edgecolor="white", linewidth=2),
+               textprops=dict(color="#1c2733", fontsize=9))
         ax.set_title("Predicted nutritional risk")
+        plt.tight_layout()
         st.pyplot(fig)
         plt.close()
-    with c2:
+    with col_b:
         st.dataframe(dist.rename("count").to_frame(),
                      use_container_width=True)
 
-    st.subheader("Record-Level Predictions")
+    st.markdown("## Record-Level Predictions")
     show_cols = []
     for key in ("barangay", "sex", "age", "weight", "height"):
         if col_map[key]:
             show_cols.append(col_map[key])
     if show_cols:
-        st.dataframe(
-            scored[show_cols + ["malnourished", "predicted_label"]].head(20),
-            use_container_width=True
+        view = scored[show_cols + ["malnourished", "risk_probability",
+                                   "predicted_label"]].sort_values(
+            "risk_probability", ascending=False
         )
+        with st.expander("highest predicted risk records first", expanded=True):
+            st.dataframe(view.head(20), use_container_width=True)
 
-st.caption("model scores - " + " | ".join(
-    f"{name}: F1 {metrics.loc[name, 'F1-Score']:.4f}, "
-    f"Recall {metrics.loc[name, 'Recall']:.4f}"
-    for name in metrics.index
-))
+    st.markdown("## Downloads")
+    export_cols = show_cols + ["malnourished", "risk_probability", "predicted_label"]
+    export = scored[export_cols].copy()
+    st.download_button(
+        "Download per-child predictions CSV",
+        export.to_csv(index=False).encode("utf-8"),
+        "per_child_predictions.csv",
+        "text/csv"
+    )
+
+st.markdown(
+    '<div class="app-footer">'
+    + "model scores — "
+    + " | ".join(
+        f"{name}: F1 {metrics.loc[name, 'F1-Score']:.4f}, "
+        f"Recall {metrics.loc[name, 'Recall']:.4f}"
+        for name in metrics.index
+    )
+    + '</div>',
+    unsafe_allow_html=True
+  )
